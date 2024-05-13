@@ -118,7 +118,9 @@ Established connection between the ‘trips’ and ‘stations’ tables (CSV) a
 
 ![Relationship](Screenshots/Tableau_Table_Relationships.png)
 
-Added a new data source to connect to the weather table. Established a relationship between the ‘start time’ in the trips table and the ‘date’ field in the weather_chi table by linking the fields as below.
+Added a new data source to connect to the 'weather' table. Established a relationship between the ‘start time’ in the trips table and the ‘date’ field in the 'weather' table by linking the fields as below.
+
+![Blend](Screenshots/Data_Blending.png)
 
 ![Field Linking](Screenshots/Tableau_Field_Linking.png)
 

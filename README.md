@@ -115,9 +115,11 @@ The SQL code for stage 2 data preparation can be viewed here - [SQL Script](Data
 ## Load
 
 Established connection between the ‘trips’ and ‘stations’ tables (CSV) and set the one-to-many relationship between ‘station id’ columns in the respective tables.
-![Relationship](Screenshots/Tableau_Table Relationships.png)
+
+![Relationship](Screenshots/Tableau_Table_Relationships.png)
 
 Added a new data source to connect to the weather table. Established a relationship between the ‘start time’ in the trips table and the ‘date’ field in the weather_chi table by linking the fields as below.
-![Field Linking](Screenshots/Tableau_Field Linking.png)
+
+![Field Linking](Screenshots/Tableau_Field_Linking.png)
 
 

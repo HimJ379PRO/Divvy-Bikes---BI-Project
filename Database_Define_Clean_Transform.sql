@@ -33,7 +33,35 @@ birthyear INT
 SELECT * 
 FROM trips;
 
--- Import process failed because the value format in the 'birthyear' column does not match INT
+-- Create the table 'weather'
+CREATE TABLE weather_chi
+(
+date DATE PRIMARY KEY,	
+Max_temp_f NUMERIC,	
+Avg_temp_f NUMERIC,
+Min_temp_f NUMERIC,
+Max_dew	NUMERIC,
+Avg_dew NUMERIC,
+Min_dew NUMERIC,
+Max_humidity_pct NUMERIC,
+Avg_humidity_pct NUMERIC,
+Min_humidity_pct NUMERIC,
+Max_windspeed_mph NUMERIC,
+Avg_windspeed_mph NUMERIC,
+Min_windspeed_mph NUMERIC,
+Max_pressure NUMERIC,
+Avg_pressure NUMERIC,
+Min_pressure NUMERIC,
+Precipitation NUMERIC
+);
+
+-- Check the data in the table 'weather'
+SELECT *
+FROM weather_chi;
+
+-- IMPORT the data from the CSV files into the tables USING pgAdmin GUI.
+
+-- Import process for 'trips' table failed because the value format in the 'birthyear' column does not match INT
 -- Change the data type of birthyear to VARCHAR to manipulate it and convert back to INT
 ALTER TABLE trips
 ALTER COLUMN birthyear
@@ -119,13 +147,33 @@ ALTER TABLE IF EXISTS public.trips
 CREATE INDEX IF NOT EXISTS fki_fk_to_station_id
     ON public.trips(to_station_id);
 
+-- Add [FK] Foreign Key constraint to create a relationship between 'date' and 'start_time' columns.
+ALTER TABLE IF EXISTS public.trips
+    ADD CONSTRAINT fk_date FOREIGN KEY (start_time)
+    REFERENCES public.weather_chi (date) MATCH SIMPLE
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+    NOT VALID;
+CREATE INDEX IF NOT EXISTS fki_fk_date
+    ON public.trips(start_time);
+
 -- Check whether the constraints are working correctly by joining the tables on id columns.
+-- 'trips' and 'stations' table
 SELECT trip_id, from_station_id, from_station_name, id, name
 FROM trips t
 JOIN stations s
 ON t.from_station_id = s.id
 WHERE from_station_id = 35;
+
+-- 'trips' and 'weather_chi' table
+SELECT date, avg_temp_f, COUNT(trip_id)
+FROM trips
+JOIN weather_chi 
+	ON weather_chi.date = trips.start_time::DATE
+WHERE date = '2018-1-29'
+GROUP BY date
 -- Great! The [FK] constraints are working correctly.
+
 
 /* 
 DROP the redundunt columns 'from_station_name' and 'to_station_name' 

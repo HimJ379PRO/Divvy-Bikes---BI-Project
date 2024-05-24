@@ -1,14 +1,14 @@
 # Divvy Bikes: BI Project Report
 The business team reached out to the Reporting and Analytics team asking for *recommendations to increase the revenue by increasing the number of trips and subscribers*. The stakeholders needed a comprehensive overview of the trips taken over the last two years (2018-2019). Based on my performance implementing the data analytics and BI projects, I was assigned to lead the initiative.
 
-**The Data -** \
+**The Data:** \
 Divvy publishes the ‘trip’ history data on the official website every quarter. I selected to analyze quarterly data for the years 2018 and 2019.
 
 The ‘stations’ dataset was readily available to download.
 
-The ‘weather’ data needed to be downloaded from a 3rd party. To save the cost and reduce time gathering the data, I decided to manually scrape it from [Weather Underground](https://www.wunderground.com/history/monthly/us/il/chicago/KMDW) website.
+The ‘weather’ data needed to be downloaded from a 3rd party. To save the cost and reduce time gathering the data, I decided to manually scrape it from Weather Underground website.
 
-**Tech Stack -**
+**Tech Stack:**
 1. `Python` to combine 8 datasets into a single dataset and analyze the variables for missing values.
 2. `Visual Studio Code` to leverage `Jupyter Notebook` and manage the project.
 3. `PostgreSQL (pgAdmin)` to use `SQL` to create a database, create relationships between the tables, fix the incorrect/invalid values and outliers, and ensure data consistency and integrity.
@@ -42,11 +42,12 @@ The ‘weather’ data was manually scraped from [Weather Underground](https://w
 The data for each month of 2018 and 2019 was copy-pasted in the Microsoft Excel workbook and then imported into the database.
 
 The Chicago **Weather** data contains:
-- Average, Minimum, and Maximum values for each characteristic (field) were recorded each day for each observation (record).
 - Windspeed
 - Temperature
 - Precipitation
 - Humidity
+- Dew Point
+- Pressure
 
 ## Transform
 ### Stage 1: Data Preparation using Python
@@ -55,7 +56,7 @@ Divvy publishes the trip history data on the official website every quarter. I s
 
 I used Python (pandas) to check the data for its structure, variables, and missing values. The data would be checked for incorrect/invalid values and the issues would be fixed in PostgreSQL in stage 2 data preparation.
 
-The Python code for stage 1 data preparation can be viewed here - [Python Notebook](Data_Prep.ipynb)
+The Python code for stage 1 data preparation can be viewed here - [Data_Prep.ipynb](Data_Prep.ipynb)
 
 **Steps -** 
 1. Read all 8 datasets into pandas data frames.
@@ -93,7 +94,7 @@ The below table represents the datasets, actual records, and sampled records for
 
 ### Stage 2: Data Preparation using SQL
 
-The SQL code for stage 2 data preparation can be viewed here - [SQL Script](Database_Define_Clean_Transform.sql)
+The SQL code for stage 2 data preparation can be viewed here - [Database_Define_Clean_Transform.sql](Database_Define_Clean_Transform.sql)
 
 **Steps -** 
 1. Created ‘stations’, ‘trips’, and ‘weather’ tables using appropriate data types and constraints.
@@ -123,7 +124,7 @@ Since Tableau Public does not connect to the PostgreSQL database, I exported the
 
 > [!IMPORTANT]
 > In the real world, we would perform Stage 2 Data Preparation using SQL and store the data in the staging table, perform the data transformations, and then load the data in the final database that we would use to connect to the Tableau Desktop using a PostgreSQL connector.
-
+> [!Note]
 > In case the data structure and format coming from the source stays the same, we would create a Stored Procedure to automate these tasks.
 
 
@@ -160,7 +161,7 @@ Divvy Riders are mainly divided into 3 categories:
 
 ![RiderSubType](Assets/Vizzes/RiderSubType.png)
 
-**Observations** 
+#### Observations 
 1. Subscribers vs. Customers:
   - Subscribers dominate the total number of trips compared to customers.
 2. Gender Distribution:
@@ -172,7 +173,7 @@ Divvy Riders are mainly divided into 3 categories:
 **Key Insight**
 - ‘Male Subscribers’ are our key customers who take the most trips. (59% of total trips).
 
-**Recommendations**
+#### Recommendations
 
 **Earn ad revenue/sales commission by promoting partner brands:** \
 Partner with brands to advertise sales and discounts to the Divvy app users. These ads, along with the link to the product page, would be sent to the subscriber's phone at the end of a trip via push notification.
@@ -204,18 +205,61 @@ Wait!, some values do not make sense: (0, 5, 14, 97, 98). These Riders either se
 
 ![alt text](Assets/Vizzes/AgeDistribution.png)
 
-**Observations**
+#### Observations
 1. Subscribers and customers show a similar usage pattern w.r.t. Number of trips taken by age, but the pattern of weekday trips differs: subscribers take most trips on weekdays and customers take most trips on weekends. 
 2. 20-year-old riders have taken the most rides.
 3. The other Top 4 age groups, w.r.t. Number of trips taken, are [26, 27, 28, 30].
 4. The number of trips declines steadily after age 35.
 5. Day Pass Riders do not show any peculiar usage pattern for the age groups.
 
-**Recommendations**
+#### Recommendations
 + Target Age Group 25-35:
   - **Enhanced Membership Packages:** Develop specialized membership packages with benefits tailored to the needs of subscribers aged 25-35, such as discounts for longer rides, partnerships with gyms or fitness centers, and special events or competitions.
-
-+ **Engagement Campaigns:** Launch marketing campaigns targeting this age group through channels they frequently use, such as social media, fitness apps, and commuter-focused advertising.
+  - **Engagement Campaigns:** Launch marketing campaigns targeting this age group through channels they frequently use, such as social media, fitness apps, and commuter-focused advertising.
 
 + **Re-engage Younger Riders:**
-Student Discounts: Offer discounted memberships or day passes for students, and partner with universities to provide easy access to bikes on or near campuses.
+  - Student Discounts: Offer discounted memberships or day passes for students, and partner with universities to provide easy access to bikes on or near campuses.
+
+
+### Trips by Day-Hour
+
+**Subscribers**
+
+![alt text](Assets/Vizzes/TripsByDayHour_Subscribers.png)
+
+**Observations (Subscribers)**
+- When we filter the data by RiderType, we observe that Subscribers exhibit 2 peaks of activity, one in the morning (7 AM to 9 AM) and one in the evening (4 PM to 6 PM), on weekdays. 
+- Combining this information with the AGE DISTRIBUTION viz, we can conclude that these are young professionals who commute to work. They must be biking to and from work every day, and a subscription is definitely cheaper for that use.
+- Weekend trips are more evenly distributed throughout the day but are generally lower in number compared to weekday peaks.
+
+**Customers**
+
+![alt text](Assets/Vizzes/TripsByDayHour_Customers.png)
+
+**Observations (Customers)**
+- Customers and Day Pass Riders take frequent rides on weekends between 10 AM and 7 PM. 
+- This suggests that the primary use cases for these riders include leisure activities such as visiting tourist attractions or biking alongside the Chicago River.
+
+**Recommendations**
+
+**Working Professionals Focused Plans and Promotions:**
++ **Corporate Partnerships:** Partner with businesses and office complexes to offer bulk subscriptions or corporate discounts for employees. Encourage companies to subsidize bike-sharing memberships as part of their employee benefits package. Partner with businesses to host community events, such as bike-to-work days.
++ **Guaranteed Availability:** Ensure bike availability and docking space at popular commuting stations during peak hours. This might involve increasing the fleet size or redistributing bikes more effectively.
++ **Weekend Promo for families:** Introduce weekend-specific promotions or family-friendly packages to increase ridership during off-peak times. Collaborate with local events or tourist attractions to offer bundled deals. For example, offer free bike unlocks to the family members of subscribers during the weekends.
+
+**Tourism Partnerships and Promotions:**
+
++ **Tourist Attraction Packages:** Partner with popular tourist attractions in Chicago to offer bundled deals that include discounted Divvy day or Weekend passes. This can be promoted through tourism websites, hotels, and tourist information centers.
++ **Guided Bike Tours:** Collaborate with local tour companies to offer guided bike tours that highlight the Chicago River and other scenic routes. Include Divvy bike rentals as part of the tour package.
+Enhanced Weekend Offerings:
++ **Weekend Passes:** Introduce special weekend passes that offer unlimited rides for the duration of a weekend. Market these passes specifically to tourists and casual riders.
++ **Family and Group Discounts:** Offer discounts for families or groups to encourage more group outings on weekends. This could include "buy one, get one free" deals or discounted rates for additional riders.
+
+**Targeted Marketing Campaigns:**
+
++ **Local Event Collaborations:** Promote Divvy as a convenient transportation option for local events, festivals, and markets happening on weekends. Partner with event organizers to offer discounted or free rides to attendees.
++ **Digital Marketing:** Use digital marketing channels such as social media, Google Ads, and travel blogs to target ads towards tourists and weekend visitors. Highlight the convenience and fun of exploring Chicago by bike.
+
+**Enhanced User Experience:**
+
++ **Interactive Maps:** Develop interactive maps and route planners that highlight popular tourist routes, scenic paths along the Chicago River, and points of interest. These can be integrated into the Divvy app and website.

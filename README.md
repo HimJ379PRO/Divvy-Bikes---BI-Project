@@ -123,6 +123,7 @@ Since Tableau Public does not connect to the PostgreSQL database, I exported the
 
 > [!IMPORTANT]
 > In the real world, we would perform Stage 2 Data Preparation using SQL and store the data in the staging table, perform the data transformations, and then load the data in the final database that we would use to connect to the Tableau Desktop using a PostgreSQL connector.
+
 > In case the data structure and format coming from the source stays the same, we would create a Stored Procedure to automate these tasks.
 
 
@@ -157,7 +158,7 @@ Divvy Riders are mainly divided into 3 categories:
 - Riders don’t have to sign up for the Divvy Account
 - Do not share ‘gender’ and ‘birthyear’  
 
-IMAGE
+![RiderSubType](Assets/Vizzes/RiderSubType.png)
 
 **Observations** 
 1. Subscribers vs. Customers:
@@ -190,3 +191,31 @@ Partner with brands to advertise sales and discounts to the Divvy app users. The
 + **Partnerships:** Collaborate with organizations focused on women's health and fitness to promote biking as a beneficial activity.
 + **Influencer Partnerships:** Collaborate with female fitness influencers, athletes, or local celebrities to promote Divvy. Use their platforms to reach and engage potential new users within this demographic.
 
+### Age Distribution
+
+Let’s visualize Rider distribution by ‘Age’
+
+For this, we would calculate ‘Age’ using the ‘Birthyear’ field.
+Since the latest data we have is 2019, instead of using the TODAY function, we would use the formula 2019 - [BIRTHYEAR]
+>[!TIP]
+>This situation best describes why the INTEGER data type is recommended for the ‘birthyear’ values.
+
+Wait!, some values do not make sense: (0, 5, 14, 97, 98). These Riders either seem too young or too old to be our riders, hence we would EXCLUDE/FILTER these values. The secondary reason to remove these outliers is to make our visualization more legible and a true representation of our most regular users.
+
+![alt text](Assets/Vizzes/AgeDistribution.png)
+
+**Observations**
+1. Subscribers and customers show a similar usage pattern w.r.t. Number of trips taken by age, but the pattern of weekday trips differs: subscribers take most trips on weekdays and customers take most trips on weekends. 
+2. 20-year-old riders have taken the most rides.
+3. The other Top 4 age groups, w.r.t. Number of trips taken, are [26, 27, 28, 30].
+4. The number of trips declines steadily after age 35.
+5. Day Pass Riders do not show any peculiar usage pattern for the age groups.
+
+**Recommendations**
++ Target Age Group 25-35:
+  - **Enhanced Membership Packages:** Develop specialized membership packages with benefits tailored to the needs of subscribers aged 25-35, such as discounts for longer rides, partnerships with gyms or fitness centers, and special events or competitions.
+
++ **Engagement Campaigns:** Launch marketing campaigns targeting this age group through channels they frequently use, such as social media, fitness apps, and commuter-focused advertising.
+
++ **Re-engage Younger Riders:**
+Student Discounts: Offer discounted memberships or day passes for students, and partner with universities to provide easy access to bikes on or near campuses.

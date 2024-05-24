@@ -13,16 +13,15 @@ The ‘weather’ data needed to be downloaded from a 3rd party. To save the cos
 2. `Visual Studio Code` to leverage `Jupyter Notebook` and manage the project.
 3. `PostgreSQL (pgAdmin)` to use `SQL` to create a database, create relationships between the tables, fix the incorrect/invalid values and outliers, and ensure data consistency and integrity.
 4. `Tableau` to visualize and analyze the data, leveraging Descriptive Statistics to examine past performance to find patterns and unearth actionable insights.
-5. `Git` to implement version control and enable efficient collaboration (Between my Mac laptop and Windows computer).
+5. `Git` to implement version control and enable efficient collaboration between my MacBook, hosting PostgreSQL, and Desktop computer, hosting Tableau Public. Let’s imagine a collab between a Data Analyst and a BI Analyst.
 6. `GitHub` to host the project files on the Cloud.
 
-Access the Tableau visualizations and analysis on [Tableau Public](https://public.tableau.com/app/profile/himanshu.jagtap/viz/DivvyExecutiveDashboard_17111650001190/DivvyAnalysis)
 
 ## Extract
 
 The ‘trips’ quarterly datasets, along with the ‘stations’ dataset, were downloaded from [Divvy website](https://divvybikes.com/system-data)
 
-Each trip is anonymized and includes:
+Each **trip** is anonymized and includes:
 - Trip start day and time
 - Trip end day and time
 - Trip start station
@@ -34,13 +33,20 @@ Each trip is anonymized and includes:
 
 The data has been processed to remove trips that are taken by staff as they service and inspect the system; and any trips that were below 60 seconds in length (potentially false starts or users trying to re-dock a bike to ensure it was secure).
 
-Station table includes info regarding:
+The **station** table includes info regarding:
 - Station Name
 - Number of docks
 - Geospatial Information (Latitude and Longitude)
 
 The ‘weather’ data was manually scraped from [Weather Underground](https://www.wunderground.com/history/monthly/us/il/chicago/KMDW) website.
 The data for each month of 2018 and 2019 was copy-pasted in the Microsoft Excel workbook and then imported into the database.
+
+The Chicago **Weather** data contains:
+- Average, Minimum, and Maximum values for each characteristic (field) were recorded each day for each observation (record).
+- Windspeed
+- Temperature
+- Precipitation
+- Humidity
 
 ## Transform
 ### Stage 1: Data Preparation using Python
@@ -113,6 +119,16 @@ The SQL code for stage 2 data preparation can be viewed here - [SQL Script](Data
 ![ERD](Screenshots/ERD.png)
 
 ## Load
+Since Tableau Public does not connect to the PostgreSQL database, I exported the tables to CSV files and stored them on the local storage.
+
+> [!IMPORTANT]
+> In the real world, we would perform Stage 2 Data Preparation using SQL and store the data in the staging table, perform the data transformations, and then load the data in the final database that we would use to connect to the Tableau Desktop using a PostgreSQL connector.
+> In case the data structure and format coming from the source stays the same, we would create a Stored Procedure to automate these tasks.
+
+
+## Analyze
+
+Access the Tableau visualizations on [Tableau Public](https://public.tableau.com/app/profile/himanshu.jagtap/viz/DivvyExecutiveDashboard_17111650001190/DivvyAnalysis)
 
 Established connection between the ‘trips’ and ‘stations’ tables (CSV) and set the one-to-many relationship between ‘station id’ columns in the respective tables.
 
@@ -124,4 +140,53 @@ Added a new data source to connect to the 'weather' table. Established a relatio
 
 ![Field Linking](Screenshots/Tableau_Field_Linking.png)
 
+### Riders
+To serve our customers well, we must know who our customers are and try to meet their needs well.
+
+Divvy Riders are mainly divided into 3 categories:
+
+**Subscribers**
+- Commuters
+- Must share ‘gender’ and ‘birthyear’
+
+**Customers**
+- Tourists
+- Must share ‘gender’ and ‘birthyear’
+
+**Day Pass Riders**
+- Riders don’t have to sign up for the Divvy Account
+- Do not share ‘gender’ and ‘birthyear’  
+
+IMAGE
+
+**Observations** 
+1. Subscribers vs. Customers:
+  - Subscribers dominate the total number of trips compared to customers.
+2. Gender Distribution:
+  - Among subscribers, males take the vast majority of trips compared to females.
+  - Among customers, males also take more trips than females, though the difference is less pronounced.
+3. Day Pass Riders:
+  - Customers using day passes take a significant number of trips.
+
+**Key Insight**
+- ‘Male Subscribers’ are our key customers who take the most trips. (59% of total trips).
+
+**Recommendations**
+
+**Earn ad revenue/sales commission by promoting partner brands:** \
+Partner with brands to advertise sales and discounts to the Divvy app users. These ads, along with the link to the product page, would be sent to the subscriber's phone at the end of a trip via push notification.
+
+**Focus on our most frequent riders (Male Subscribers):**
+
++ **Personalized Offers:** Use data analytics to identify usage patterns among male subscribers and create personalized offers that encourage more frequent use. For example, offer loyalty rewards or discounts for achieving certain ride milestones each month.
++ **Fitness Challenges:** Organize fitness challenges or biking events that cater to competitive and fitness-oriented males, offering prizes or recognition for participation and achievements.
++ **Interest-Based Marketing:** Promote biking as a complementary activity to popular male-dominated interests such as sports, fitness, or commuting. Highlight benefits such as improved health, cost savings, and convenience.
+
+
+**Attract More Female Riders:**
+
++ **Women-Specific Promotions:** Offer promotions or discounts for female riders, and create women-focused biking groups or events to foster a sense of community.
++ **Incentive Programs:** Create incentive programs that reward female users for frequent trips, such as bonus loyalty points that can be redeemed for Divvy merchandise or discounted products or services at partner brands.
++ **Partnerships:** Collaborate with organizations focused on women's health and fitness to promote biking as a beneficial activity.
++ **Influencer Partnerships:** Collaborate with female fitness influencers, athletes, or local celebrities to promote Divvy. Use their platforms to reach and engage potential new users within this demographic.
 

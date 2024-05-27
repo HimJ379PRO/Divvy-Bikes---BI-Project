@@ -148,17 +148,18 @@ To serve our customers well, we must know who our customers are and try to meet 
 Divvy Riders are mainly divided into 3 categories:
 
 **Subscribers**
-- Commuters
+- Majority Commuters
 - Must share ‘gender’ and ‘birthyear’
 
 **Customers**
-- Tourists
+- Majority Tourists
 - Must share ‘gender’ and ‘birthyear’
 
 **Day Pass Riders**
 - Riders don’t have to sign up for the Divvy Account
 - Do not share ‘gender’ and ‘birthyear’  
 
+**Trips taken by Riders (SubTypes)**
 ![RiderSubType](Assets/Vizzes/RiderSubType.png)
 
 #### Observations 
@@ -232,7 +233,7 @@ Wait!, some values do not make sense: (0, 5, 14, 97, 98). These Riders either se
 - Combining this information with the AGE DISTRIBUTION viz, we can conclude that these are young professionals who commute to work. They must be biking to and from work every day, and a subscription is definitely cheaper for that use.
 - Weekend trips are more evenly distributed throughout the day but are generally lower in number compared to weekday peaks.
 
-**Customers**
+**Customers and Day Pass Riders**
 
 ![alt text](Assets/Vizzes/TripsByDayHour_Customers.png)
 
@@ -263,3 +264,94 @@ Enhanced Weekend Offerings:
 **Enhanced User Experience:**
 
 + **Interactive Maps:** Develop interactive maps and route planners that highlight popular tourist routes, scenic paths along the Chicago River, and points of interest. These can be integrated into the Divvy app and website.
+
+
+### Top Stations by Trips
+
+To analyze further, I combined the multiple visualizations on 'trips', 'stations', and 'Riders' data with the location data (Nearby **Tourists Attractions, Transit Stations, and Office Buildings**) on **Google Maps** to create a list of the key stations in Chicago Downtown, ranked bby number of trips started at the station.
+
+**Top 10 Stations in Chicago Downtown OVERALL**
+| Rank | Station                         | Characteristic          | Popular Places Nearby                                                                 | Top Time Blocks by Traffic | Top Rider Type |
+|------|---------------------------------|-------------------------|--------------------------------------------------------------------------------------|----------------------------|----------------|
+| 1    | Streeter Dr & Grand Ave         | Tourist Attraction      | Navy Pier, Children’s Museum, Milton Lee Olive Park, Ohio Street Beach               | Afternoon, Evening         | Customers      |
+| 2    | Canal St & Adams St             | Public Transit Station  | Chicago Union Station, Skydeck Chicago, Chicago River                                | Morning, Afternoon         | Subscribers    |
+| 3    | Clinton St & Madison St         | Public Transit Station  | Ogilvie Transportation Center, Chicago River                                         | Morning, Afternoon         | Subscribers    |
+| 4    | Clinton St & Washington Blvd    | Public Transit Station  | Ogilvie Transportation Center, Chicago River                                         | Morning, Afternoon         | Subscribers    |
+| 5    | Lake Shore Dr & Monroe St       | Tourist Attraction      | Maggie Daley Park, Monroe Harbor, The Art Institute of Chicago                       | Afternoon, Evening         | Customers      |
+| 6    | Michigan Ave & Washington St    | Public Transit Station  | Subway Station, Millennium Park                                                      | Afternoon                  | Subscribers    |
+| 7    | Columbus Dr & Randolph St       | Tourist Attraction      | Lurie Garden, Millennium Park, Crown Fountain                                        | Morning, Afternoon         | Subscribers    |
+| 8    | Daley Center Plaza              | Tourist Attraction      | Richard J. Daley Center                                                              | Afternoon                  | Subscribers    |
+| 9    | Franklin St & Monroe St         | Tourist Attraction      | Lyric Opera of Chicago, Chicago River                                                | Afternoon                  | Subscribers    |
+| 10   | Kingsbury St & Kinzie St        | Public Transit Station  | Merchandise Mart Station, Chicago River                                              | Morning, Afternoon         | Subscribers    |
+
+
+**Top 5 Stations Ranked by Trips taken by SUBSCRIBERS** 
+
+| Rank | Station                      | Characteristic          | Popular Places Nearby                          | Top Time Blocks When Trips Started |
+|------|------------------------------|-------------------------|-----------------------------------------------|-----------------------------------|
+| 1    | Canal St & Adams St          | Public Transit Station  | Chicago Union Station, Skydeck Chicago, Chicago River | Morning, Afternoon                |
+| 2    | Clinton St & Madison St      | Public Transit Station  | Ogilvie Transportation Center, Chicago River   | Morning, Afternoon                |
+| 3    | Clinton St & Washington Blvd | Public Transit Station  | Ogilvie Transportation Center, Chicago River   | Morning, Afternoon                |
+| 4    | Kingsbury St & Kinzie St     | Public Transit Station  | Merchandise Mart Station, Chicago River        | Morning, Afternoon                |
+| 5    | Daley Center Plaza           | Tourist Attraction      | Richard J. Daley Center                        | Afternoon                         |
+
+
+**Top 5 Stations Ranked by Trips taken by CUSTOMERS**
+
+| Rank | Station                   | Characteristic      | Popular Places Nearby                                                             | Top Time Blocks When Trips Started |
+|------|---------------------------|---------------------|----------------------------------------------------------------------------------|-----------------------------------|
+| 1    | Streeter Dr & Grand Ave   | Tourist Attraction  | Navy Pier, Children’s Museum, Milton Lee Olive Park, Ohio Street Beach            | Afternoon, Evening                |
+| 2    | Lake Shore Dr & Monroe St | Tourist Attraction  | Maggie Daley Park, Monroe Harbor, The Art Institute of Chicago                    | Afternoon, Evening                |
+| 3    | Millennium Park           | Tourist Attraction  | Millennium Park                                                                   | Afternoon, Evening                |
+| 4    | Shedd Aquarium            | Tourist Attraction  | Shedd Aquarium                                                                    | Afternoon                         |
+| 5    | Michigan Ave and Oak St   | Tourist Attraction  | Lincoln Park Zoo, Lakefront Trail                                                 | Afternoon, Evening                |
+
+**Observations**
+   - **Tourist Attraction Stations**:
+   These stations are located near 'popular tourist destinations' and have high traffic during the 'afternoon and evening', primarily from 'customers'.
+   - **Public Transit Stations**:
+   These stations are situated near 'major transit hubs' and have high traffic during 'morning and afternoon', mainly from 'subscribers'.
+
+
+### Recommendations to Increase Divvy Revenue
+
+#### 1. **Enhancing Commuter Experience at Public Transit Stations**
+
+- **Subscription Incentives**: Offer promotions for long-term subscriptions at these key transit stations to encourage more commuters to subscribe.
+- **Corporate Partnerships**: Collaborate with businesses near these stations to provide employee bike-share programs or subsidies.
+- **Convenience Services**: Introduce amenities like bike repair stations and secure bike parking to enhance the commuter experience.
+
+#### 2. **Maximizing Revenue from Tourist Attractions**
+
+- **Tourist Packages**: Develop special day-pass packages that include discounts or bundled offers for local attractions and museums.
+- **Marketing Campaigns**: Target tourists through travel websites, hotel partnerships, and social media ads, highlighting the convenience and scenic routes accessible via Divvy bikes.
+- **Guided Tours**: Partner with tour operators to offer guided bike tours, which include Divvy bike rentals.
+
+#### 3. **Targeted Promotions for Off-Peak Times**
+
+- **Flexible Pricing**: Implement dynamic pricing that offers reduced rates during off-peak hours to encourage usage throughout the day.
+- **Special Events**: Organize and promote events or community rides during slower periods to increase ridership.
+
+#### 4. **Improving Station Utilization**
+
+- **Real-Time Data Utilization**: Use real-time data to monitor bike availability and ensure stations are adequately stocked, especially during peak times.
+- **Expanding Docking Stations**: Add more docking stations at high-demand locations and underserved areas to accommodate more riders and reduce instances of full or empty stations.
+
+#### 5. **User Experience Enhancements**
+
+- **App Features**: Enhance the Divvy app to include features like route planning, real-time bike availability, and integration with public transit schedules.
+- **Safety and Comfort**: Offer rental helmets and provide maintenance for bikes to ensure a safe and comfortable ride for users.
+
+### Station Specific Recommendations:
+
+1. **For Streeter Dr & Grand Ave**:
+   - **Tourist Promotions**: Partner with nearby attractions like Navy Pier to offer combined tickets or discounts for Divvy users.
+   - **Evening Rides**: Promote evening rides with scenic routes along Ohio Street Beach and the Chicago River, possibly with guided tours.
+
+2. **For Canal St & Adams St**:
+   - **Commuter Programs**: Introduce a loyalty program for daily commuters with perks like priority bike access during peak hours.
+   - **Morning Coffee Deals**: Partner with nearby coffee shops to offer discounts to Divvy users commuting in the morning.
+
+3. **For Clinton St & Washington Blvd**:
+   - **Corporate Engagement**: Engage with businesses near the Ogilvie Transportation Center to offer exclusive subscription discounts for their employees.
+   - **Public Transit Integration**: Enhance integration with public transit options, offering seamless transition solutions for riders.

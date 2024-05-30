@@ -18,7 +18,7 @@ The ‘weather’ data needed to be downloaded from a 3rd party. To save the cos
 
 
 ## Extract
-
+### Trips and Stations data
 The ‘trips’ quarterly datasets, along with the ‘stations’ dataset, were downloaded from [Divvy website](https://divvybikes.com/system-data)
 
 Each **trip** is anonymized and includes:
@@ -38,8 +38,36 @@ The **station** table includes info regarding:
 - Number of docks
 - Geospatial Information (Latitude and Longitude)
 
+### Daily Weather data
+I decided to find bike usage patterns to '**optimize bike availability**' based on weather patterns, combining this data with the seasonal usage pattern. For this purpose, we needed the daily weather observations recorded over 2 years. 
+
+Options:
+1. Purchase the weather data online/3rd party,
+2. Scrape the weather data from a website hosting historical weather data in tabular format.
+
+I chose option 2 because it saved time and cost.
+
+The ‘weather’ data was scraped from [Weather Underground](https://www.wunderground.com/history/monthly/us/il/chicago/KMDW) website.
+
+Python code for the data scraping process can be reviewed here - [DataScraping_Weather.ipynb](DataScraping_Weather.ipynb)
+
+Steps - 
+1. Studied the HTML structure of the DAILY OBSERVATIONS table using Google Chrome Developer Tools.
+2. Downloaded and parsed the HTML of all 24 pages (12 each year) by automatically generating the page URLs and looping through each of them.
+Extracted the row data and stored it temporarily in the dictionary. 
+Appended the individual table data to the pandas data frame one after the other.
+Combined the data frames and exported and exported to CSV file.
+
+The UNPROCESSED data was saved to [WeatherData_2018_2019_UNPROCESSED.csv](WeatherData_2018_2019_UNPROCESSED.csv)
+
+>[!NOTE]
+> The structure of the DAILY OBSERVATIONS table was very complicated. The field names were split into two lines: It had header data stored in the 'th' as well as the 'td' tags. The data for each characteristic such as wind speed or temperature was stored in individual tables with Min, Max, and AVG values (fields). The problem was solved by extracting these tables separately and then concatenating them horizontally along axis 1.
+
+The data in the CSV file was later PROCESSED by loading it into MS Excel and adding the DATES by replacing the day numbers with the full date in MM/DD/YYYY format. This process was accelerated using the smart and powerful AUTOFILL feature of MS Excel.
+
+The PROCESSED data was saved to [WeatherData_2018_2019_PROCESSED.csv](WeatherData_2018_2019_PROCESSED.csv)
+
 The ‘weather’ data was manually scraped from [Weather Underground](https://www.wunderground.com/history/monthly/us/il/chicago/KMDW) website.
-The data for each month of 2018 and 2019 was copy-pasted in the Microsoft Excel workbook and then imported into the database.
 
 The Chicago **Weather** data contains:
 - Windspeed

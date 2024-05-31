@@ -49,25 +49,25 @@ I chose option 2 because it saved time and cost.
 
 The ‘weather’ data was scraped from [Weather Underground](https://www.wunderground.com/history/monthly/us/il/chicago/KMDW) website.
 
-Python code for the data scraping process can be reviewed here - [DataScraping_Weather.ipynb](DataScraping_Weather.ipynb)
+>[!CODE REVIEW]
+>Python code for the data scraping process can be reviewed here - [DataScraping_Weather.ipynb](DataScraping_Weather.ipynb)
 
-Steps - 
+**Steps -** 
 1. Studied the HTML structure of the DAILY OBSERVATIONS table using Google Chrome Developer Tools.
 2. Downloaded and parsed the HTML of all 24 pages (12 each year) by automatically generating the page URLs and looping through each of them.
-Extracted the row data and stored it temporarily in the dictionary. 
-Appended the individual table data to the pandas data frame one after the other.
-Combined the data frames and exported and exported to CSV file.
+3. Extracted the row data and stored it temporarily in the dictionary. 
+4. Appended the individual table data to the pandas data frame one after the other.
+5. Combined the data frames and exported and exported to CSV file.
 
 The UNPROCESSED data was saved to [WeatherData_2018_2019_UNPROCESSED.csv](WeatherData_2018_2019_UNPROCESSED.csv)
 
 >[!NOTE]
-> The structure of the DAILY OBSERVATIONS table was very complicated. The field names were split into two lines: It had header data stored in the 'th' as well as the 'td' tags. The data for each characteristic such as wind speed or temperature was stored in individual tables with Min, Max, and AVG values (fields). The problem was solved by extracting these tables separately and then concatenating them horizontally along axis 1.
+> + The structure of the DAILY OBSERVATIONS table was highly intricate. Field names were distributed across two lines, with header data stored in both 'th' and 'td' tags. Data for each characteristic, such as wind speed or temperature, was organized in separate tables containing Min, Max, and AVG values. 
+>  - The solution involved extracting these tables individually and then concatenating them horizontally along axis 1, effectively streamlining the data for analysis.
 
 The data in the CSV file was later PROCESSED by loading it into MS Excel and adding the DATES by replacing the day numbers with the full date in MM/DD/YYYY format. This process was accelerated using the smart and powerful AUTOFILL feature of MS Excel.
 
 The PROCESSED data was saved to [WeatherData_2018_2019_PROCESSED.csv](WeatherData_2018_2019_PROCESSED.csv)
-
-The ‘weather’ data was manually scraped from [Weather Underground](https://www.wunderground.com/history/monthly/us/il/chicago/KMDW) website.
 
 The Chicago **Weather** data contains:
 - Windspeed
@@ -84,7 +84,8 @@ Divvy publishes the trip history data on the official website every quarter. I s
 
 I used Python (pandas) to check the data for its structure, variables, and missing values. The data would be checked for incorrect/invalid values and the issues would be fixed in PostgreSQL in stage 2 data preparation.
 
-The Python code for stage 1 data preparation can be viewed here - [Data_Prep.ipynb](Data_Prep.ipynb)
+[!TIP]
+> The Python code for stage 1 data preparation can be viewed here - [Data_Prep.ipynb](Data_Prep.ipynb)
 
 **Steps -** 
 1. Read all 8 datasets into pandas data frames.
@@ -202,17 +203,16 @@ Divvy Riders are mainly divided into 3 categories:
 **Key Insight**
 - ‘Male Subscribers’ are our key customers who take the most trips. (59% of total trips).
 
-#### Recommendations
+**Recommendations**
 
-**Earn ad revenue/sales commission by promoting partner brands:** \
-Partner with brands to advertise sales and discounts to the Divvy app users. These ads, along with the link to the product page, would be sent to the subscriber's phone at the end of a trip via push notification.
+**Generate Ad Revenue and Sales Commissions:**  
+- Collaborate with brands to advertise sales and discounts to Divvy app users. These ads, along with links to product pages, will be sent to subscribers' phones via push notifications at the end of a trip.
+- Utilize the rider's route to promote shops along the riding path.
 
 **Focus on our most frequent riders (Male Subscribers):**
 
-+ **Personalized Offers:** Use data analytics to identify usage patterns among male subscribers and create personalized offers that encourage more frequent use. For example, offer loyalty rewards or discounts for achieving certain ride milestones each month.
-+ **Fitness Challenges:** Organize fitness challenges or biking events that cater to competitive and fitness-oriented males, offering prizes or recognition for participation and achievements.
++ **Personalized Offers:** Use data analytics to identify usage patterns among male subscribers and create personalized offers that encourage more frequent use. For example, offer loyalty rewards or discounts for achieving certain ride milestones each month. This will ensure the optimum revenue from our most frequent riders.
 + **Interest-Based Marketing:** Promote biking as a complementary activity to popular male-dominated interests such as sports, fitness, or commuting. Highlight benefits such as improved health, cost savings, and convenience.
-
 
 **Attract More Female Riders:**
 
@@ -226,7 +226,8 @@ Partner with brands to advertise sales and discounts to the Divvy app users. The
 Let’s visualize Rider distribution by ‘Age’
 
 For this, we would calculate ‘Age’ using the ‘Birthyear’ field.
-Since the latest data we have is 2019, instead of using the TODAY function, we would use the formula 2019 - [BIRTHYEAR]
+Since the latest data we have is 2019, instead of using the TODAY function, we would use the formula `2019 - [BIRTHYEAR]`
+
 >[!TIP]
 >This situation best describes why the INTEGER data type is recommended for the ‘birthyear’ values.
 
@@ -249,6 +250,8 @@ Wait!, some values do not make sense: (0, 5, 14, 97, 98). These Riders either se
 + **Re-engage Younger Riders:**
   - Student Discounts: Offer discounted memberships or day passes for students, and partner with universities to provide easy access to bikes on or near campuses.
 
++ **Fitness Challenges:** 
+  - Organize fitness challenges or biking events that cater to competitive and fitness-oriented males, offering prizes or recognition for participation and achievements.
 
 ### Trips by Day-Hour
 
@@ -341,45 +344,36 @@ To analyze further, I combined the multiple visualizations on 'trips', 'stations
    These stations are situated near 'major transit hubs' and have high traffic during 'morning and afternoon', mainly from 'subscribers'.
 
 
-### Recommendations to Increase Divvy Revenue
+**Recommendations**
 
-#### 1. **Enhancing Commuter Experience at Public Transit Stations**
-
-- **Subscription Incentives**: Offer promotions for long-term subscriptions at these key transit stations to encourage more commuters to subscribe.
-- **Corporate Partnerships**: Collaborate with businesses near these stations to provide employee bike-share programs or subsidies.
-- **Convenience Services**: Introduce amenities like bike repair stations and secure bike parking to enhance the commuter experience.
-
-#### 2. **Maximizing Revenue from Tourist Attractions**
-
-- **Tourist Packages**: Develop special day-pass packages that include discounts or bundled offers for local attractions and museums.
-- **Marketing Campaigns**: Target tourists through travel websites, hotel partnerships, and social media ads, highlighting the convenience and scenic routes accessible via Divvy bikes.
-- **Guided Tours**: Partner with tour operators to offer guided bike tours, which include Divvy bike rentals.
-
-#### 3. **Targeted Promotions for Off-Peak Times**
-
-- **Flexible Pricing**: Implement dynamic pricing that offers reduced rates during off-peak hours to encourage usage throughout the day.
-- **Special Events**: Organize and promote events or community rides during slower periods to increase ridership.
-
-#### 4. **Improving Station Utilization**
+**Improving Station Utilization**
 
 - **Real-Time Data Utilization**: Use real-time data to monitor bike availability and ensure stations are adequately stocked, especially during peak times.
 - **Expanding Docking Stations**: Add more docking stations at high-demand locations and underserved areas to accommodate more riders and reduce instances of full or empty stations.
 
-#### 5. **User Experience Enhancements**
+>[!TIP]
+> Integrate the observations regarding seasonal patterns and station congestion visualizations to recommend which stations should have an increased number of docks and which should have a reduced number.
 
-- **App Features**: Enhance the Divvy app to include features like route planning, real-time bike availability, and integration with public transit schedules.
-- **Safety and Comfort**: Offer rental helmets and provide maintenance for bikes to ensure a safe and comfortable ride for users.
-
-### Station Specific Recommendations:
+**Station Specific Recommendations:**
 
 1. **For Streeter Dr & Grand Ave**:
    - **Tourist Promotions**: Partner with nearby attractions like Navy Pier to offer combined tickets or discounts for Divvy users.
    - **Evening Rides**: Promote evening rides with scenic routes along Ohio Street Beach and the Chicago River, possibly with guided tours.
 
 2. **For Canal St & Adams St**:
-   - **Commuter Programs**: Introduce a loyalty program for daily commuters with perks like priority bike access during peak hours.
+   - **Commuter Programs**: Introduce a loyalty program for Subscribers with perks like priority bike access during peak hours.
    - **Morning Coffee Deals**: Partner with nearby coffee shops to offer discounts to Divvy users commuting in the morning.
 
 3. **For Clinton St & Washington Blvd**:
    - **Corporate Engagement**: Engage with businesses near the Ogilvie Transportation Center to offer exclusive subscription discounts for their employees.
    - **Public Transit Integration**: Enhance integration with public transit options, offering seamless transition solutions for riders.
+
+**Integration with Google and Apple Maps apps**
+- **Increased Visibility**: Divvy stations will be prominently displayed as viable transit options in Google and Apple Maps, attracting new users, including tourists who use these apps for navigation.
+
+- **Seamless Navigation**: Users can plan routes incorporating biking, receive real-time bike availability updates, and reduce frustration from unavailable bikes.
+- **Enhanced Convenience**: Users can find stations, check availability, and initiate rentals directly from the maps app, with optimized biking routes for a smoother ride.
+- **Improved User Experience for Subscribers**: Subscribers can link accounts to maps apps for easier bike reservations and access to ride history and stats, with optimized routes for commuters.
+- **Data Analytics and Insights**: Integration provides valuable data on user behavior for optimizing bike distribution and station placement, with an easy feedback loop through the maps app.
+
+By leveraging Google and Apple Maps' user bases and navigation features, Divvy can attract more riders, enhance user experience, and increase trips and revenue.

@@ -87,7 +87,7 @@ Divvy publishes the trip history data on the official website every quarter. I s
 
 I used Python (pandas) to check the data for its structure, variables, and missing values. The data would be checked for incorrect/invalid values and the issues would be fixed in PostgreSQL in stage 2 data preparation.
 
-[!TIP]
+> [!TIP]
 > The Python code for stage 1 data preparation can be viewed here - [Data_Prep.ipynb](Data_Prep.ipynb)
 
 **Steps -** 

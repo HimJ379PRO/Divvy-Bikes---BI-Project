@@ -485,4 +485,97 @@ Continuously monitor station usage patterns to make dynamic adjustments to dock 
 
 This approach ensures that the Divvy system can better match supply with demand, enhancing user experience, reducing congestion, and optimizing the use of infrastructure.
 
-### Seasonal and Weather Patterns
+### Seasonal and Weather Effects
+
+Let us perform a seasonal analysis of the trips. For this, I created a calculated field called ‘Seasons’.
+
+Formula - 
+```python
+IF DATEPART('month',[Start Time]) < 3 OR DATEPART('month',[Start Time]) = 12 THEN 'Winter'
+ELSEIF DATEPART('month',[Start Time]) < 6 THEN 'Spring'
+ELSEIF DATEPART('month',[Start Time]) < 9 THEN 'Summer'
+ELSE 'Fall'
+END
+```
+
+**Observations**
+
+**Trips By Season**
+
+![alt text](Assets/Vizzes/TripsBySeason.png)
+
+**Seasonal Trends**: \
+The number of trips significantly increased during the warmer months (June to September) and decreased during the colder months (December to March).
+
+Since these seasons come one after the other and cover 6-7 months in a year, we can increase or decrease the number of docks at the high-demand stations.
+
+**In-demand stations by Season**
+
+![alt text](Assets/Vizzes/StationRankBySeason.png)
+
+Top 5 most popular stations by season \
+**Summer**
+| Rank | Name                          | Trips | Docks |
+|------|-------------------------------|-------|-------|
+| 1    | Streeter Dr & Grand Ave       | 16405 | 46    |
+| 2    | Lake Shore Dr & Monroe St     | 10452 | 39    |
+| 3    | Canal St & Adams St           | 10021 | 47    |
+| 4    | Lake Shore Dr & North Blvd    | 8709  | 39    |
+| 5    | Clinton St & Madison St       | 8506  | 31    |
+
+**Fall**
+| Rank | Name                          | Trips | Docks |
+|------|-------------------------------|-------|-------|
+| 1    | Streeter Dr & Grand Ave       | 14409 | 46    |
+| 2    | Canal St & Adams St           | 12315 | 47    |
+| 3    | Clinton St & Madison St       | 11092 | 31    |
+| 4    | Clinton St & Washington Blvd  | 9594  | 31    |
+| 5    | Lake Shore Dr & Monroe St     | 8559  | 39    |
+
+**Let us find stations that have very low demand in these seasons.**
+
+Top 5 Stations with a LOW number of Trips in Summer with docks higher than 30
+| Rank | Name                       | Trips | Docks | Trips per Dock |
+|------|----------------------------|-------|-------|----------------|
+| 1    | Artesian Ave & Hubbard St  | 972   | 35    | 27             |
+| 2    | Paulina St & Flournoy St   | 973   | 31    | 31             |
+| 3    | Field Museum               | 2119  | 55    | 38             |
+| 4    | Canal St & Jackson Blvd    | 1884  | 47    | 40             |
+| 5    | Wabash Ave & 16th St       | 1761  | 39    | 45             |
+
+Top 5 Stations with a LOW number of Trips in Fall with docks higher than 30
+| Rank | Name                       | Trips | Docks | Trips per Dock |
+|------|----------------------------|-------|-------|----------------|
+| 1    | Artesian Ave & Hubbard St  | 1121  | 35    | 32             |
+| 2    | Field Museum               | 1958  | 55    | 35             |
+| 3    | Paulina St & Flournoy St   | 1142  | 31    | 36             |
+| 4    | Buckingham Fountain        | 1859  | 38    | 48             |
+| 5    | Wabash Ave & 16th St       | 1894  | 39    | 48             |
+
+**Recommendation**
+- Move 5 to 10 docks from low-demand to high-demand stations, during Summer and Fall, by this way we can better meet rider needs and improve overall system efficiency. In effect, it would likely enhance user satisfaction and increase revenue.
+
+**Trips vs. Temperature**
+
+![alt text](Assets/Vizzes/TripsVsTemp.png)
+
+1. **Peak Temperature and Trips**: The highest average temperature recorded was 77.96°F in August 2019, correlating with high trip counts.
+2. **Winter Low**: The lowest average temperature recorded was 23.01°F in January 2019, corresponding to the lowest trip counts.
+3. **Freezing Point Impact**: When the average temperature was below the freezing point (32°F), the number of trips dropped substantially.
+
+**Trips vs. Wind Speed**
+
+![alt text](Assets/Vizzes/TripsVsWind.png)
+
+1. **Wind Speed and Trips**: Higher wind speeds correlated with fewer trips, while lower wind speeds were associated with higher trip counts.
+2. **Summer Peak**: August 2019, with an average wind speed of 8.152 mph, had the highest number of trips (147,391).
+3. **Winter Dip**: December 2018 showed a significant drop in trips when the wind speed increased to around 12.144 mph.
+
+**Recommendations**
+
+1. **Higher (dynamic) pricing**:
+   - Maximize revenue by introducing peak pricing during the summer months when demand is naturally higher. 
+
+2. **Lower (dynamic) pricing**:
+   - **Cold Weather**: During months with lower temperatures, provide incentives such as lower rates, loyalty rewards, or bundled offers to motivate users.
+   - **Windy Conditions**: On days with higher wind speeds, offer discounts or promotions to encourage riding despite less favorable conditions.

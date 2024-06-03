@@ -49,7 +49,7 @@ I chose option 2 because it saved time and cost.
 
 The ‘weather’ data was scraped from [Weather Underground](https://www.wunderground.com/history/monthly/us/il/chicago/KMDW) website.
 
->[!CODE REVIEW]
+>[!TIP]
 >Python code for the data scraping process can be reviewed here - [DataScraping_Weather.ipynb](DataScraping_Weather.ipynb)
 
 **Steps -** 
@@ -61,9 +61,12 @@ The ‘weather’ data was scraped from [Weather Underground](https://www.wunder
 
 The UNPROCESSED data was saved to [WeatherData_2018_2019_UNPROCESSED.csv](WeatherData_2018_2019_UNPROCESSED.csv)
 
+>[!IMPORTANT]
+> I added a `WebDriverWait()` with the condition to wait until the table with the specified CSS selector is present on the page. This ensured that the code waits for each page to load completely before proceeding to scrape data from it.
+
 >[!NOTE]
 > + The structure of the DAILY OBSERVATIONS table was highly intricate. Field names were distributed across two lines, with header data stored in both 'th' and 'td' tags. Data for each characteristic, such as wind speed or temperature, was organized in separate tables containing Min, Max, and AVG values. 
->  - The solution involved extracting these tables individually and then concatenating them horizontally along axis 1, effectively streamlining the data for analysis.
+>  - The solution involved extracting these tables individually and then concatenating them horizontally along axis 1.
 
 The data in the CSV file was later PROCESSED by loading it into MS Excel and adding the DATES by replacing the day numbers with the full date in MM/DD/YYYY format. This process was accelerated using the smart and powerful AUTOFILL feature of MS Excel.
 
@@ -123,7 +126,8 @@ The below table represents the datasets, actual records, and sampled records for
 
 ### Stage 2: Data Preparation using SQL
 
-The SQL code for stage 2 data preparation can be viewed here - [Database_Define_Clean_Transform.sql](Database_Define_Clean_Transform.sql)
+>[!TIP]
+> The SQL code for stage 2 data preparation can be viewed here - [Database_Define_Clean_Transform.sql](Database_Define_Clean_Transform.sql)
 
 **Steps -** 
 1. Created ‘stations’, ‘trips’, and ‘weather’ tables using appropriate data types and constraints.
@@ -159,7 +163,8 @@ Since Tableau Public does not connect to the PostgreSQL database, I exported the
 
 ## Analyze
 
-Access the Tableau visualizations on [Tableau Public](https://public.tableau.com/app/profile/himanshu.jagtap/viz/DivvyExecutiveDashboard_17111650001190/DivvyAnalysis)
+>[!TIP]
+> Access the Tableau visualizations on [Tableau Public](https://public.tableau.com/app/profile/himanshu.jagtap/viz/DivvyExecutiveDashboard_17111650001190/DivvyAnalysis)
 
 Established connection between the ‘trips’ and ‘stations’ tables (CSV) and set the one-to-many relationship between ‘station id’ columns in the respective tables.
 
@@ -191,7 +196,7 @@ Divvy Riders are mainly divided into 3 categories:
 **Trips taken by Riders (SubTypes)**
 ![RiderSubType](Assets/Vizzes/RiderSubType.png)
 
-#### Observations 
+**Observations**
 1. Subscribers vs. Customers:
   - Subscribers dominate the total number of trips compared to customers.
 2. Gender Distribution:
@@ -235,14 +240,14 @@ Wait!, some values do not make sense: (0, 5, 14, 97, 98). These Riders either se
 
 ![alt text](Assets/Vizzes/AgeDistribution.png)
 
-#### Observations
+**Observations**
 1. Subscribers and customers show a similar usage pattern w.r.t. Number of trips taken by age, but the pattern of weekday trips differs: subscribers take most trips on weekdays and customers take most trips on weekends. 
 2. 20-year-old riders have taken the most rides.
 3. The other Top 4 age groups, w.r.t. Number of trips taken, are [26, 27, 28, 30].
 4. The number of trips declines steadily after age 35.
 5. Day Pass Riders do not show any peculiar usage pattern for the age groups.
 
-#### Recommendations
+**Recommendations**
 + Target Age Group 25-35:
   - **Enhanced Membership Packages:** Develop specialized membership packages with benefits tailored to the needs of subscribers aged 25-35, such as discounts for longer rides, partnerships with gyms or fitness centers, and special events or competitions.
   - **Engagement Campaigns:** Launch marketing campaigns targeting this age group through channels they frequently use, such as social media, fitness apps, and commuter-focused advertising.
@@ -377,3 +382,107 @@ To analyze further, I combined the multiple visualizations on 'trips', 'stations
 - **Data Analytics and Insights**: Integration provides valuable data on user behavior for optimizing bike distribution and station placement, with an easy feedback loop through the maps app.
 
 By leveraging Google and Apple Maps' user bases and navigation features, Divvy can attract more riders, enhance user experience, and increase trips and revenue.
+
+### Station Congestion
+
+I used Tableau's ‘Pages Playback’ feature to visualize the number of trips started at the station concerning the number of docks at the station, each month. Stations are represented with Blue circles; their size varies by the number of docks. The red-to-yellow gradient of colors represents the number of trips started at the station; Red represents a lower number of trips per station and bright yellow represents a higher number of trips started at the station.
+
+![alt text](Assets/Vizzes/StationCongestion.gif)
+
+**Observations** \
+The Top 5 Stations getting overburdened owing to unusually high demand in Summer, especially in July and August, are Michigan Ave & Oak St, Streeter Dr & Grand Ave, Lake Shore Dr & Monroe St, Clinton St & Madison St, and Clinton St & Washington Blvd. We are losing revenue as many Riders were not unable to start the ride owing to the unavailability of the bikes.
+
+1. **High Traffic Concentration in Downtown Chicago**:
+   - The central area of downtown Chicago shows a consistently high number of trips per dock throughout the months. This is indicated by the bright yellow circles, especially around major tourist attractions and public transit hubs.
+
+2. **Seasonal Variation**:
+   - There is a noticeable increase in the number of trips per dock during the warmer months (likely from late spring to early fall). This suggests a higher usage of the bike-share system during these periods, likely due to more favorable weather conditions.
+
+3. **Consistent Low Traffic in Certain Areas**:
+   - Some peripheral areas consistently show low traffic, indicated by red circles. These areas might not have as many attractions or are less densely populated, resulting in fewer trips per dock.
+
+4. **Public Transit and Tourist Attraction Proximity**:
+   - Stations near major public transit stations (like Union Station) and tourist attractions (such as Navy Pier) show higher traffic. This indicates that many users might be combining bike-share with public transit or using bikes to visit popular destinations.
+
+5. **Rush Hour Patterns**:
+   - Combining these observations with those of the 'Trips by Day-Hour' visualization, the higher usage at stations near public transit hubs confirms the morning and evening rush hour peaks, consistent with commuter usage.
+
+![Station Congestion in July 2019](Assets/Vizzes/StationCongestion_July2019.png)
+
+When I ranked the stations by the 'Number of Trips per Dock' I discovered that the Top ranked stations below match with the above observation.
+
+Top 10 Stations with High number of Trips per Dock 
+(*with trip count higher than the average of trips per station*)
+
+| Rank | Name                           | Count | Docks | Trips per Dock |
+|------|--------------------------------|-------|-------|----------------|
+| 1    | Clinton St & Madison St        | 25543 | 31    | 823            |
+| 2    | Clinton St & Washington Blvd   | 24066 | 31    | 776            |
+| 3    | Michigan Ave & Oak St          | 16285 | 22    | 740            |
+| 4    | Streeter Dr & Grand Ave        | 33779 | 46    | 734            |
+| 5    | Fairbanks Ct & Grand Ave       | 10622 | 15    | 708            |
+| 6    | Canal St & Adams St            | 29351 | 47    | 624            |
+| 7    | Wells St & Concord Ln          | 11053 | 19    | 581            |
+| 8    | Rush St & Cedar St             | 6332  | 11    | 575            |
+| 9    | St. Clair St & Erie St         | 10220 | 18    | 567            |
+| 10   | Lake Shore Dr & Monroe St      | 21408 | 39    | 548            |
+
+---
+**Recommendations**
+
+1. **Dynamic Pricing**:
+   - Implement dynamic pricing that increases during peak usage times (e.g., rush hours) and decreases during off-peak times to balance the load and maximize revenue.
+
+2. **Seasonal Promotions**:
+   - Offer seasonal promotions or discounts during the off-peak seasons (winter months) to encourage usage despite less favorable weather conditions.
+
+3. **Expand Dock Stations**:
+   - Increase the number of docks and bikes at consistently high-traffic stations in downtown Chicago to meet demand and reduce congestion.
+
+**Let us explore the 3rd recommendation, Expand Dock Stations, furthur.**
+
+It is economical to reduce the number of docks at certain stations having very low trips per dock and shift those docks to the stations with a very high number of trips per dock. For the purpose, I calculated the statistics for the number of docks per station for all the 611 stations.
+
+**Number of docks per station**
+| Statistic | Value |
+|-----------|-------|
+| Average   | 17    |
+| Median    | 15    |
+| Minimum   | 7     |
+| Maximum   | 55    |
+
+Let us not touch the stations with less than 15 docks and try to find out stations having way more than 15 docks and significantly fewer trips per dock. For the purpose, I used a scatterplot.
+
+![alt text](Assets/Vizzes/DocksToRemove.png)
+
+The scatterplot provided displays the relationship between the number of trips and the number of docks at various Divvy bike stations. Each point represents a station.The color gradient from yellow to red indicates the trips per dock, with red representing a higher number of trips per dock and bright yellow indicating a lower number of trips per dock.
+
+**Observations**
+1. **High Docks, Low Trips**: \
+The highlighted area shows stations with a relatively high number of docks (30-55) but a low number of trips. These stations have an excess of docks compared to the demand.
+2. **Trip Density**: \
+ The color intensity helps identify stations with higher or lower utilization rates, i.e., trips per dock. Stations with more intense colors have fewer trips per dock, indicating underutilization.
+
+**Recommendations**
+1. **Reduce Docks in Low-Utilization Areas**: \
+Stations in the highlighted area should have docks reduced, as these are underutilized.
+2. **Reallocate Docks to High-Utilization Areas**: \
+Move docks from underutilized stations to those with high trip counts and fewer docks to balance supply and demand.
+3. **Monitor and Adjust**: \
+Continuously monitor station usage patterns to make dynamic adjustments to dock allocations based on real-time data.
+
+**Below are the top 5 candidates for docks redistribuion.**
+
+**Top 5 Stations with High Number of Docks and Low Trips per Dock**
+
+| Rank | Station                      | Trips | Docks | Trips per Dock |
+|------|------------------------------|-------|-------|----------------|
+| 1    | Field Museum                 | 4,744 | 55    | 86             |
+| 2    | Wabash Ave and 16th St       | 4,592 | 39    | 118            |
+| 3    | Canal St and Jackson Blvd    | 5,651 | 47    | 120            |
+| 4    | Michigan Ave and 8th St      | 6,565 | 43    | 152            |
+| 5    | Ravenswood Ave and Lawrence Ave | 7,226 | 46    | 157            |
+
+This approach ensures that the Divvy system can better match supply with demand, enhancing user experience, reducing congestion, and optimizing the use of infrastructure.
+
+### Seasonal and Weather Patterns

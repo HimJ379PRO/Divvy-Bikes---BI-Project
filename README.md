@@ -1,4 +1,6 @@
 # Divvy Bikes: BI Project Report
+
+**Context:** \
 The business team reached out to the Reporting and Analytics team asking for *recommendations to increase the revenue by increasing the number of trips and subscribers*. The stakeholders needed a comprehensive overview of the trips taken over the last two years (2018-2019). Based on my performance implementing the data analytics and BI projects, I was assigned to lead the initiative.
 
 **The Data:** \
@@ -122,7 +124,7 @@ The below table represents the datasets, actual records, and sampled records for
 | Q3 2019  | 1,640,718      | 410,180         |
 | Q4 2019  | 704,054        | 176,014         |
 | **Total**    | **7,421,086**      | **1,855,272**       |
-
+---
 
 ### Stage 2: Data Preparation using SQL
 
@@ -147,7 +149,7 @@ The below table represents the datasets, actual records, and sampled records for
 
 > [!NOTE]
 > We used integer data type for ‘birthyear’ so that we could easily calculate the ‘age’ of our customers using numerical functions.
-
+---
 **Entity Relationship Diagram**
 
 ![ERD](Screenshots/ERD.png)
@@ -175,6 +177,7 @@ Added a new data source to connect to the 'weather' table. Established a relatio
 ![Blend](Screenshots/Data_Blending.png)
 
 ![Field Linking](Screenshots/Tableau_Field_Linking.png)
+---
 
 ### Riders
 To serve our customers well, we must know who our customers are and try to meet their needs well.
@@ -225,6 +228,7 @@ Divvy Riders are mainly divided into 3 categories:
 + **Incentive Programs:** Create incentive programs that reward female users for frequent trips, such as bonus loyalty points that can be redeemed for Divvy merchandise or discounted products or services at partner brands.
 + **Partnerships:** Collaborate with organizations focused on women's health and fitness to promote biking as a beneficial activity.
 + **Influencer Partnerships:** Collaborate with female fitness influencers, athletes, or local celebrities to promote Divvy. Use their platforms to reach and engage potential new users within this demographic.
+---
 
 ### Age Distribution
 
@@ -257,6 +261,7 @@ Wait!, some values do not make sense: (0, 5, 14, 97, 98). These Riders either se
 
 + **Fitness Challenges:** 
   - Organize fitness challenges or biking events that cater to competitive and fitness-oriented males, offering prizes or recognition for participation and achievements.
+---
 
 ### Trips by Day-Hour
 
@@ -301,6 +306,7 @@ Enhanced Weekend Offerings:
 
 + **Interactive Maps:** Develop interactive maps and route planners that highlight popular tourist routes, scenic paths along the Chicago River, and points of interest. These can be integrated into the Divvy app and website.
 
+---
 
 ### Top Stations by Trips
 
@@ -382,6 +388,7 @@ To analyze further, I combined the multiple visualizations on 'trips', 'stations
 - **Data Analytics and Insights**: Integration provides valuable data on user behavior for optimizing bike distribution and station placement, with an easy feedback loop through the maps app.
 
 By leveraging Google and Apple Maps' user bases and navigation features, Divvy can attract more riders, enhance user experience, and increase trips and revenue.
+---
 
 ### Station Congestion
 
@@ -484,6 +491,7 @@ Continuously monitor station usage patterns to make dynamic adjustments to dock 
 | 5    | Ravenswood Ave and Lawrence Ave | 7,226 | 46    | 157            |
 
 This approach ensures that the Divvy system can better match supply with demand, enhancing user experience, reducing congestion, and optimizing the use of infrastructure.
+---
 
 ### Seasonal and Weather Effects
 

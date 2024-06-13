@@ -388,6 +388,7 @@ To analyze further, I combined the multiple visualizations on 'trips', 'stations
 - **Data Analytics and Insights**: Integration provides valuable data on user behavior for optimizing bike distribution and station placement, with an easy feedback loop through the maps app.
 
 By leveraging Google and Apple Maps' user bases and navigation features, Divvy can attract more riders, enhance user experience, and increase trips and revenue.
+
 ---
 
 ### Station Congestion
@@ -491,6 +492,7 @@ Continuously monitor station usage patterns to make dynamic adjustments to dock 
 | 5    | Ravenswood Ave and Lawrence Ave | 7,226 | 46    | 157            |
 
 This approach ensures that the Divvy system can better match supply with demand, enhancing user experience, reducing congestion, and optimizing the use of infrastructure.
+
 ---
 
 ### Seasonal and Weather Effects
